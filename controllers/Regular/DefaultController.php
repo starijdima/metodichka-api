@@ -36,7 +36,7 @@ class DefaultController extends Controller
             if($step !== '0'){
                 $data = $db->getAll("SELECT * FROM news ORDER BY news_date DESC LIMIT '".$step."'");
                 if($step === '1') {
-                    $data = $db->getAll("SELECT * FROM news where id between '".((float)$step)."' and '".((float)$step+10)."'ORDER BY news_date DESC");
+                    $data = $db->getAll("SELECT * FROM news where id between '".((float)$step)."' and '".((float)$step+19)."'ORDER BY news_date DESC");
                 } else {
                     $data = $db->getAll("SELECT * FROM news where id between '".((float)$step*10)."' and '".(((float)$step*10)+10)."'ORDER BY news_date DESC");
                 }
