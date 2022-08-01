@@ -27,14 +27,15 @@ class DefaultController extends Controller
         }
         return json_encode($data);
     }
-    public static function getNews($all_flag, $step)
+    public static function getNews($news_id, $step)
     {
         $db = (new DatabaseORM())->ORM;
-        if($all_flag == true){
-            $data = $db->getAll("SELECT * FROM news ORDER BY news_date DESC");
-        }
-        if($step){
-            $data = $db->getAll("SELECT * FROM news ORDER BY news_date DESC LIMIT '".$step."'");
+        if($news_id !== '0'){
+            $data = $db->getAll("SELECT * FROM news WHERE id = '".$news_id."'");
+        } else {
+            if($step){
+                $data = $db->getAll("SELECT * FROM news ORDER BY news_date DESC LIMIT '".$step."'");
+            }
         }
         return json_encode($data);
     }
