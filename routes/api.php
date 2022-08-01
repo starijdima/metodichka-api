@@ -13,8 +13,8 @@
 namespace Roast\Routes;
 $route->get('/', '\Roast\Controllers\Regular\DefaultController@welcome');
 
-$route->post('/api/services/(\w+)', function($service_name) {
-  echo \Roast\Controllers\Regular\DefaultController::getServices($service_name);
+$route->get('/api/services/(\w+)', function($service_index) {
+  echo \Roast\Controllers\Regular\DefaultController::getServices($service_index);
 });
 
 

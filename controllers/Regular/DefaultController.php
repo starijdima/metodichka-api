@@ -17,13 +17,13 @@ class DefaultController extends Controller
      return Response::JSON(App::Ver());
    }
 
-    public static function getServices($service_name)
+    public static function getServices($service_index)
     {
         $db = (new DatabaseORM())->ORM;
-        if($service_name === 'all'){
+        if($service_index == 'all'){
             $data = $db->getAll("SELECT * FROM services");
         } else {
-            $data = $db->getAll("SELECT * FROM services WHERE service_name = '".$service_name."'");
+            $data = $db->getAll("SELECT * FROM services WHERE service_index = '".$service_index."'");
         }
         return json_encode($data);
     }
