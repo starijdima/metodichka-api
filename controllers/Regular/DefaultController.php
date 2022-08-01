@@ -21,7 +21,7 @@ class DefaultController extends Controller
     {
         $db = (new DatabaseORM())->ORM;
         if($service_index == 'all'){
-            $data = $db->getAll("SELECT * FROM services");
+            $data = $db->getAll("SELECT * FROM services ORDER BY id");
         } else {
             $data = $db->getAll("SELECT * FROM services WHERE service_index = '".$service_index."'");
         }
