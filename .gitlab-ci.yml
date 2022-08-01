@@ -1,0 +1,21 @@
+variables:
+  PROJECT_PATH: "/root/docker/kiber-back"
+  #CI_DEBUG_TRACE: "true"
+
+stages:
+  - deploy
+
+#Деплой на виртуалку
+deploy-production:
+  stage: deploy
+  environment:
+    name: production
+  tags:
+    - vm-goroh-01
+  only:
+    - main
+  script:
+    - rsync -rv --omit-dir-times --exclude-from='excludes.rsync' --delete . $PROJECT_PATH
+    - cp -f $ENV $PROJECT_PATH/.env
+    - cd $PROJECT_PATH && docker-compose up --force-recreate -d --build
+

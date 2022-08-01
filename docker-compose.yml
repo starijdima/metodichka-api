@@ -1,0 +1,36 @@
+version: '3'
+services:
+#PHP kiber back
+  kiber-back-prod:
+    build:
+      context: ./docker/
+      dockerfile: Dockerfile
+    image: stariy/kiber-back-prod:v1
+    container_name: kiber-back-prod
+    restart: always
+    environment:
+      SERVICE_NAME: kiber-back
+      SERVICE_TAGS: production
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - kiber_network
+
+  #Nginx Proxy Service
+  kiber-back-proxy-prod:
+    image: nginx:alpine
+    container_name: kiber-back-proxy-prod
+    restart: always
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - kiber_network
+      
+#Docker Networks
+networks:
+  kiber_network:
