@@ -34,9 +34,11 @@ class DefaultController extends Controller
             $data = $db->getAll("SELECT * FROM news WHERE id = '".$news_id."'");
         } else {
             if($step !== '0'){
-                $data = $db->getAll("SELECT * FROM news where id between '".$step."' and '".((float)$step+20)."'ORDER BY news_date DESC");
-            } else {
                 $data = $db->getAll("SELECT * FROM news ORDER BY news_date DESC LIMIT '".$step."'");
+            } else if($step === '1') {
+                $data = $db->getAll("SELECT * FROM news where id between '".((float)$step)."' and '".((float)$step+10)."'ORDER BY news_date DESC");
+            } else {
+                $data = $db->getAll("SELECT * FROM news where id between '".((float)$step*10)."' and '".(((float)$step*10)+10)."'ORDER BY news_date DESC");
             }
         }
         return json_encode($data);
